@@ -1,0 +1,42 @@
+[
+ {
+  "pair": 0,
+  "verdict": "A",
+  "A_is_C": true
+ },
+ {
+  "pair": 1,
+  "verdict": "B",
+  "A_is_C": false
+ },
+ {
+  "pair": 2,
+  "verdict": "B",
+  "A_is_C": false
+ },
+ {
+  "pair": 3,
+  "verdict": "A",
+  "A_is_C": true
+ },
+ {
+  "pair": 4,
+  "verdict": "B",
+  "A_is_C": false
+ },
+ {
+  "pair": 5,
+  "verdict": "B",
+  "A_is_C": false
+ },
+ {
+  "pair": 6,
+  "verdict": "B",
+  "A_is_C": true
+ },
+ {
+  "pair": 7,
+  "verdict": "A",
+  "A_is_C": true
+ }
+]
