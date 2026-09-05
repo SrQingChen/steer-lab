@@ -1,6 +1,7 @@
 torch>=2.4
 transformers>=4.45
 accelerate
-bitsandbytes
 matplotlib
 numpy
+scipy
+sentence-transformers>=3
