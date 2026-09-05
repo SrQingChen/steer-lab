@@ -1,0 +1,44 @@
+{"pair": 0, "set": "C_vs_base", "topic": "metro", "A_is_C": true, "verdict": "A", "t": 9.0}
+{"pair": 0, "set": "C_vs_base", "swapped": true, "A_is_C": false, "verdict": "B"}
+{"pair": 1, "set": "C_vs_base", "topic": "metro", "A_is_C": false, "verdict": "B", "t": 26.5}
+{"pair": 1, "set": "C_vs_base", "swapped": true, "A_is_C": true, "verdict": "B"}
+{"pair": 2, "set": "C_vs_base", "topic": "metro", "A_is_C": false, "verdict": "B", "t": 43.1}
+{"pair": 2, "set": "C_vs_base", "swapped": true, "A_is_C": true, "verdict": "A"}
+{"pair": 3, "set": "C_vs_base", "topic": "metro", "A_is_C": false, "verdict": "B", "t": 64.0}
+{"pair": 3, "set": "C_vs_base", "swapped": true, "A_is_C": true, "verdict": "A"}
+{"pair": 4, "set": "C_vs_base", "topic": "phone", "A_is_C": true, "verdict": "A", "t": 79.2}
+{"pair": 4, "set": "C_vs_base", "swapped": true, "A_is_C": false, "verdict": "B"}
+{"pair": 5, "set": "C_vs_base", "topic": "phone", "A_is_C": true, "verdict": "A", "t": 98.9}
+{"pair": 5, "set": "C_vs_base", "swapped": true, "A_is_C": false, "verdict": "B"}
+{"pair": 6, "set": "C_vs_base", "topic": "phone", "A_is_C": true, "verdict": "B", "t": 117.7}
+{"pair": 6, "set": "C_vs_base", "swapped": true, "A_is_C": false, "verdict": "B"}
+{"pair": 7, "set": "C_vs_base", "topic": "phone", "A_is_C": false, "verdict": "B", "t": 134.9}
+{"pair": 7, "set": "C_vs_base", "swapped": true, "A_is_C": true, "verdict": "A"}
+{"pair": 8, "set": "C_vs_base", "topic": "fitness", "A_is_C": false, "verdict": "B", "t": 152.1}
+{"pair": 9, "set": "C_vs_base", "topic": "fitness", "A_is_C": false, "verdict": "B", "t": 159.8}
+{"pair": 10, "set": "C_vs_base", "topic": "fitness", "A_is_C": false, "verdict": "B", "t": 169.0}
+{"pair": 11, "set": "C_vs_base", "topic": "fitness", "A_is_C": true, "verdict": "A", "t": 180.1}
+{"pair": 12, "set": "C_vs_base", "topic": "coffee", "A_is_C": false, "verdict": "B", "t": 190.0}
+{"pair": 13, "set": "C_vs_base", "topic": "coffee", "A_is_C": false, "verdict": "B", "t": 196.5}
+{"pair": 14, "set": "C_vs_base", "topic": "coffee", "A_is_C": true, "verdict": "B", "t": 207.1}
+{"pair": 15, "set": "C_vs_base", "topic": "coffee", "A_is_C": true, "verdict": "A", "t": 214.6}
+{"pair": 16, "set": "C_vs_base", "topic": "coding", "A_is_C": false, "verdict": "B", "t": 222.5}
+{"pair": 17, "set": "C_vs_base", "topic": "coding", "A_is_C": true, "verdict": "A", "t": 233.0}
+{"pair": 18, "set": "C_vs_base", "topic": "coding", "A_is_C": true, "verdict": "A", "t": 240.8}
+{"pair": 19, "set": "C_vs_base", "topic": "coding", "A_is_C": false, "verdict": "B", "t": 251.6}
+{"pair": 20, "set": "C_vs_base", "topic": "pet", "A_is_C": true, "verdict": "A", "t": 260.8}
+{"pair": 21, "set": "C_vs_base", "topic": "pet", "A_is_C": true, "verdict": "B", "t": 269.1}
+{"pair": 22, "set": "C_vs_base", "topic": "pet", "A_is_C": false, "verdict": "B", "t": 278.7}
+{"pair": 23, "set": "C_vs_base", "topic": "pet", "A_is_C": false, "verdict": "B", "t": 287.7}
+{"pair": 24, "set": "C_vs_ic", "topic": "metro", "A_is_C": true, "verdict": "PARSE_FAIL:'捕鱼”“涨潮”“渔船一窝蜂似的”“海面”“小船儿”等，用捕鱼比喻城市早高峰；口语化，有“这不就是……吗”“真是一点都不好'", "t": 296.0}
+{"pair": 25, "set": "C_vs_ic", "topic": "metro", "A_is_C": false, "verdict": "A", "t": 306.2}
+{"pair": 26, "set": "C_vs_ic", "topic": "metro", "A_is_C": false, "verdict": "A", "t": 315.4}
+{"pair": 27, "set": "C_vs_ic", "topic": "metro", "A_is_C": false, "verdict": "B", "t": 324.0}
+{"pair": 28, "set": "C_vs_ic", "topic": "phone", "A_is_C": true, "verdict": "A", "t": 333.6}
+{"pair": 29, "set": "C_vs_ic", "topic": "phone", "A_is_C": true, "verdict": "PARSE_FAIL:'一些个人化，虽然不像吴语老渔民，但比B更像一个健谈的人。B是纯书面、客观。因此答案A。\\n\\n需要按格式最后一行严格：答案：'", "t": 342.8}
+{"pair": 30, "set": "C_vs_ic", "topic": "phone", "A_is_C": true, "verdict": "B", "t": 354.2}
+{"pair": 31, "set": "C_vs_ic", "topic": "phone", "A_is_C": true, "verdict": "A", "t": 363.8}
+{"pair": 32, "set": "C_vs_ic", "topic": "fitness", "A_is_C": true, "verdict": "PARSE_FAIL:'散步什么的，身体适应了之后再增加强度。饮食方面，多吃蔬菜水果，少吃油腻食物，这样对身体有好处。\\n\\n文本B比较平实、口语，'", "t": 371.6}
+{"pair": 33, "set": "C_vs_ic", "topic": "fitness", "A_is_C": true, "verdict": "B", "t": 380.6}
+{"pair": 34, "set": "C_vs_ic", "topic": "fitness", "A_is_C": false, "verdict": "B", "t": 392.5}
+{"pair": 35, "set": "C_vs_ic", "topic": "fitness", "A_is_C": true, "verdict": "B", "t": 404.2}
