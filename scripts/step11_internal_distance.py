@@ -137,5 +137,65 @@ def main():
               f"{sum(1 for d in ds_null if d < 0.6)/len(ds_null):.0%}", flush=True)
 
 
+    print("\n== 修正版零基线：40 个无关完整句子（名词基线混入了文本类型差异）==", flush=True)
+    NULL_SENTS = [
+        "今天天气晴朗，适合出门散步。", "超市里的蔬菜价格最近有所下降。", "这份报告需要在周五之前完成。",
+        "公交车每隔十五分钟一班。", "图书馆下午五点闭馆。", "小明每天早上七点起床吃早餐。",
+        "公司下季度要开三个新项目。", "小区门口新开了一家早餐店。", "火车晚点了二十分钟。",
+        "这份合同需要双方签字盖章。", "明天的会议改到下午三点。", "快递放在了前台代收点。",
+        "这条路的限速是每小时六十公里。", "银行的营业时间是九点到五点。", "这台洗衣机是去年买的。",
+        "学校的运动会定在下个月举行。", "他每天骑自行车上班。", "菜市场下午人比较少。",
+        "这部电影上映两周了。", "办公室的空调坏了。", "地铁末班车是十一点半。",
+        "这个软件需要更新到最新版本。", "门口的鞋柜放不下了。", "她喜欢在阳台种花。",
+        "晚饭做了三个菜一个汤。", "楼下的超市二十四小时营业。", "打印机缺纸了。",
+        "下周要出差去南方。", "小区里新装了充电桩。", "这本书已经借了两周了。",
+        "会议室被预订到中午。", "她的钢琴课在每周六上午。", "这个路口经常堵车。",
+        "冰箱里没有鸡蛋了。", "车站对面有一家面馆。", "公司年会定在一月十五号。",
+        "他的驾照这个月到期。", "阳台的晾衣架坏了。", "这个月的电费比上月高。",
+    ]
+    reps_nullsent = reps(model, tok, NULL_SENTS)
+    for L in LAYERS:
+        ds_null = [cos_dist(reps_nullsent[L]["mean"][i], reps_canary[L]["mean"][ci])
+                   for i in range(len(NULL_SENTS)) for ci in range(2)]
+        ds_obs = [cos_dist(reps_tc[L]["mean"][ti], reps_canary[L]["mean"][ci])
+                  for ti in range(len(TOPICS)) for ci in range(2)]
+        m, s = st.mean(ds_null), st.pstdev(ds_null)
+        z = (st.mean(ds_obs) - m) / s if s > 0 else 0
+        print(f"L{L}: 句子级零基线 {m:.4f}±{s:.4f}  话题-金丝雀 {st.mean(ds_obs):.4f} "
+              f"(z={z:+.2f})", flush=True)
+
+    print("\n== 尺度修正：去中心化后再算距离（用户假设：窄带是公共分量所致）==", flush=True)
+    for L in LAYERS:
+        # 用全部背景文本估计公共均值（40名词 + 7话题），减去后重归一化
+        bg = torch.cat([reps_null[L]["mean"], reps_tc[L]["mean"]], dim=0)
+        center = bg.mean(dim=0)
+
+        def cen(t):
+            v = t - center
+            return v / v.norm().clamp_min(1e-8)
+
+        tc_c = [cen(v) for v in reps_tc[L]["mean"]]
+        ca_c = [cen(v) for v in reps_canary[L]["mean"]]
+        nu_c = [cen(v) for v in reps_null[L]["mean"]]
+
+        ds_null = [cos_dist(nu_c[i], ca_c[ci]) for i in range(len(NULL_NOUNS))
+                   for ci in range(2)]
+        import statistics as st
+        m, s = st.mean(ds_null), st.pstdev(ds_null)
+
+        def dist_c(ti, ci):
+            return cos_dist(tc_c[ti], ca_c[ci])
+
+        rho_all, p_all, ds = corr_for(dist_c)
+        rho_ex, p_ex, _ = corr_for(dist_c, exclude=APPROPRIATE_PAIRS)
+        tag = " [主终点]" if L == PRIMARY_LAYER else ""
+        print(f"L{L}-centered{tag}: 全配对 rho={rho_all:.3f} (p={p_all:.4f}) | "
+              f"净化后 rho={rho_ex:.3f} (p={p_ex:.4f}) | "
+              f"带宽 [{min(ds):.3f},{max(ds):.3f}] vs 原始 "
+              f"[{min(cos_dist(reps_tc[L]['mean'][t], reps_canary[L]['mean'][c]) for t in range(7) for c in range(2)):.3f},"
+              f"{max(cos_dist(reps_tc[L]['mean'][t], reps_canary[L]['mean'][c]) for t in range(7) for c in range(2)):.3f}] | "
+              f"零基线 {m:.3f}±{s:.3f}", flush=True)
+
+
 if __name__ == "__main__":
     main()
