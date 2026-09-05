@@ -1,0 +1,10 @@
+{
+  "topics": [
+    {"id": "metro",    "question": "你怎么看城市早高峰的地铁拥挤问题？"},
+    {"id": "phone",    "question": "现在年轻人买手机应该注重什么？"},
+    {"id": "fitness",  "question": "如果要去健身锻炼，你有什么建议？"},
+    {"id": "coffee",   "question": "现在流行的咖啡店为什么大家都爱去？"},
+    {"id": "coding",   "question": "学编程难不难，值得投入吗？"},
+    {"id": "pet",      "question": "养猫和养狗哪个更适合上班族？"}
+  ]
+}
