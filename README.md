@@ -15,6 +15,17 @@ English TL;DR: We show that naively-extracted steering vectors from character ex
 
 配套方法学：E 似然比评分器（双人设+第三控制）、金丝雀协议、回弹协议、多家族裁判（DS-V4-Pro + GLM 子代理 + 人类盲评 86% 一致）。
 
+## 核心图表（`python scripts/make_figures.py` 一键从存档数据重生成，无需 GPU）
+
+| 图 | 内容 |
+|---|---|
+| ![分解](results/figures/F2_decomposition.png) | **效应分解**：格式逃逸 ≈ +0.81 vs 习语特异增量 ≈ +0.10 |
+| ![盆地](results/figures/F3_basin_bimodal.png) | **盆地双峰**：泄漏是相变事件（中位 2 步塌陷） |
+| ![距离](results/figures/F4_distance.png) | **距离-进入率**（倒 U 形污染曲线为待验证预测） |
+| ![边界](results/figures/F5_failure_boundary.png) | **失效边界与工作点**（朴素 vs 消元，层位×剂量热图） |
+| ![裁判](results/figures/F6_judges.png) | **三家族裁判会师**（含格式匹配对的全体衰减） |
+| ![干预](results/figures/F7_intervention.png) | **哨兵干预**：0/30 显影，零质量代价 |
+
 ## 快速开始
 
 ```bash
@@ -39,11 +50,44 @@ results/       全部实验数据（jsonl + 向量 + 报告）
 docs/          机理手册 / 想法积压 / 论文骨架 / 人类盲评对账
 ```
 
-## 科研过程记录
+## 实验流水线（依赖顺序）
 
-全程预注册（判据写于运行前）、盲测、阴性结果如实报告、三次仪器故障被自检当场捕获
-（cos 归一化 bug / DS 推理模型空判 / 零基线类型混杂），完整历史见 git log。
-人类盲评者发现的关键混杂（格式 vs 风格）触发了 step16 判别实验并改写了主张。
+```
+阶段A 转向研究:  step1(提取) → step2/2b(生成) → step3(报告)
+                 step6(层位扫描) → step7(提取协议v2) → step8(阳性对照)
+                 step13(E评分,无需生成) → step14/14b(确认实验) → step17(跨模型复现)
+阶段B 污染研究:  step4(回弹) → step5(格式) → step9/9b(金丝雀) → step10(链探针)
+                 step11(距离对照) → step19(哨兵干预)
+阶段C 评估:      step15/18(裁判,需 DEEPSEEK_API_KEY 见.env.example) → make_figures.py
+```
+每步的预注册判据、数据文件、判读写在脚本头部注释与 `docs/机理手册.md`。
+
+## 科研诚信声明
+
+- 本项目由人类研究者（问题构想、现象定义、关键混杂发现、素材与盲评）与 AI 助手
+  （代码实现、统计分析、文献检索、文稿起草）协作完成，全程对话式推进；
+- 全部实验预注册（判据先于运行），阴性结果与三次仪器故障如实报告；
+- 人类盲评由作者本人完成（利益冲突已知，独立评分者待补）；
+- 占位核查两轮（`docs/占位核查.md`），主张按核查结果两次重定位。
+
+## Roadmap
+
+- [ ] 杀手实验：在 CAST(Llama-2-7B) 协议上量化格式逃逸占比
+- [ ] 规模曲线：1.7B/3B/7B 格式逃逸份额
+- [ ] 独立人类评分者（去作者冲突）
+- [ ] 倒 U 形污染曲线验证（恰当性维度）
+- [ ] 门控注意力因果实验（见 docs/想法积压.md）
+
+## 引用
+
+```bibtex
+@misc{steer_lab_2026,
+  title  = {steer_lab: 示例衍生转向向量的失效边界与突破口},
+  author = {SrQingChen},
+  year   = {2026},
+  url    = {https://github.com/SrQingChen/steer-lab}
+}
+```
 
 ## 引用的游戏素材
 
