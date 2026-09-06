@@ -36,18 +36,19 @@ def load_lamp(path_q, path_h, n, max_hist):
     for line in open(path_q, encoding="utf-8"):
         r = json.loads(line)
         qs[r["id"]] = r
-    hs = {}
+    # 历史文件为扁平格式：每行一条记录(id, source, target, generation)，按 id 聚组
+    from collections import defaultdict
+    prof = defaultdict(list)
     for line in open(path_h, encoding="utf-8"):
         r = json.loads(line)
-        hs[r["id"]] = r
+        prof[r["id"]].append({"source": r["source"], "target": r["target"]})
     users = []
     for uid, q in list(qs.items())[:n]:
-        prof = hs.get(uid, {}).get("profile", [])
-        prof = prof[:max_hist]
-        if len(prof) < 3:
+        items = prof.get(uid, [])[:max_hist]
+        if len(items) < 3:
             continue
         users.append({"uid": uid, "source": q["source"], "target": q["target"],
-                      "profile": prof})
+                      "profile": items})
     return users
 
 
@@ -107,13 +108,20 @@ def main():
 
     @torch.no_grad()
     def extract_vec(user, L):
+        key = (user["uid"], L)
+        if key in _VEC_CACHE:
+            return _VEC_CACHE[key]
         pos_l, neg_l = [], []
         for hi, piece in enumerate(user["profile"]):
             n = neutral_map[(user["uid"], hi)]
             pos_l.append(last_act(None, piece["source"], piece["target"], L))
             neg_l.append(last_act(None, piece["source"], n["neutral"], L))
         v = torch.stack(pos_l).mean(0) - torch.stack(neg_l).mean(0)
-        return v / v.norm().clamp_min(1e-8)
+        v = v / v.norm().clamp_min(1e-8)
+        _VEC_CACHE[key] = v
+        return v
+
+    _VEC_CACHE = {}  # (uid, layer) -> 向量；进程内缓存，避免每次生成重复16次前向
 
     # HookManager 注入需要预挂层；小扫描逐层挂
     from src.model import HookManager
